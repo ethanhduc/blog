@@ -1,21 +1,13 @@
-import { useState, useEffect } from 'react'
 import BlogList from './BlogList';
+import useFetch from './useFetch';
 
 const Home = () => {
-    const [blogs, setBlogs] = useState(null);
-
-    useEffect(() => {
-        fetch("http://localhost:8000/blogs")
-            .then(res => { // get response object and jsonify it
-                return res.json();
-            })
-            .then(data => { //we set the data
-                setBlogs(data);
-            });
-    }, []);
+    const { data: blogs, isPending, error } = useFetch('http://localhost:8000/blogs'); //custom hook, useFetch returns an object with 3 properties, we destructure it here
 
     return (
         <div className="home">
+            { error && <div> {error} </div>}
+            { isPending && <div>Loading...</div> }
             {blogs && <BlogList blogs={blogs} title="All Blogs" />}  {/*passing blogs array into BlogList component as a property, only goes through if blogs isn't null */}
         </div>
     );
