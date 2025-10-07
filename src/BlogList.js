@@ -1,4 +1,4 @@
-const BlogList = ({ blogs, title, handleDelete }) => { //destructuring 'props', getting the array & title, 'props' is always an object that contains all properties passed to the component
+const BlogList = ({ blogs, title }) => { //destructuring 'props', getting the array & title, 'props' is always an object that contains all properties passed to the component
     //const blogs = props.blogs;
     //const title = props.title;
 
@@ -9,7 +9,6 @@ const BlogList = ({ blogs, title, handleDelete }) => { //destructuring 'props', 
                 <div className="blog-preview" key={blog.id}>
                     <h2>{ blog.title }</h2>
                     <p>Written by { blog.author }</p>
-                    <button onClick={() => handleDelete(blog.id)}>delete blog</button>
                 </div>
             ))}
         </div>
