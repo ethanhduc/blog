@@ -6,10 +6,10 @@ const useFetch = (url) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const abortCont = new AbortController();
+        const abortCont = new AbortController(); //makes object from AbortController class to abort fetch if the component using this hook unmounts
 
         setTimeout(() => {
-            fetch(url, { signal: abortCont.signal })
+            fetch(url, { signal: abortCont.signal }) //signal property allows us to abort the fetch
             .then(res => { // get response object
                 if(!res.ok) {
                     throw Error('Could not fetch the data for that resource');
@@ -31,7 +31,9 @@ const useFetch = (url) => {
                 }
             });
         }, 1000); //simulate a delay of 1 second
+
         return () => abortCont.abort(); //cleanup function to abort fetch if the component using this hook unmounts
+
     }, [url]); //dependency array, if url changes, useEffect runs again
 
     return { data, isPending, error };
